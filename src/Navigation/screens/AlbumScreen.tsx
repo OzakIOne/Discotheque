@@ -6,11 +6,13 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
-import arrangedData from "../../components/Data/ArrangedData";
+import dataByGenre from "../../components/Data/DataByGenre";
+import dataByArtist from "../../components/Data/DataByArtist";
+import dataByYear from "../../components/Data/DataByYear";
 
-const Item = ({ artist, data }: { artist: any; data: any }) => (
+const Item = ({ element, data }: { element: any; data: any }) => (
   <View style={styles.item}>
-    <Text style={styles.artist}>{artist}</Text>
+    <Text style={styles.element}>{element}</Text>
     <Image source={{ uri: data.image }} style={{ width: 50, height: 50 }} />
     <Text>{data.year}</Text>
   </View>
@@ -18,13 +20,16 @@ const Item = ({ artist, data }: { artist: any; data: any }) => (
 
 export default function AlbumScreen() {
   const renderItem = ({ item }: { item: any }) => (
-    <Item artist={item.artist} data={item.data[0]} />
+    <Item element={item.element} data={item.data[0]} />
   );
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <FlatList
-        data={arrangedData}
+        //TODO faire un switch ??? Sur l'appel du toggle
+        // data={dataByYear}
+        // data={dataByGenre}
+        data={dataByArtist}
         renderItem={renderItem}
         keyExtractor={(item) => item.idx}
       />
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
     // padding: 10,
     flexDirection: "row",
   },
-  artist: {
+  element: {
     // fontSize: 24,
   },
 });
