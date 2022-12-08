@@ -19,7 +19,7 @@ const myfetch = (search: string) =>
 
 const Item = ({ title, image }: { title: string; image: string }) => (
   <View style={styles.item}>
-    <Image source={{ uri: { image } }} style={{ width: 50, height: 50 }} />
+    <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />
     <Text style={styles.title}>{title}</Text>
     <Button
       icon="plus"
