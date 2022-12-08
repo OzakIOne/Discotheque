@@ -11,7 +11,7 @@ import CustomizeScreen from '../screens/CustomizeScreen';
 //Screen names
 const albumListScreen = 'Albums';
 const searchScreen = 'Search';
-const customizeScreen = 'Cutsomize';
+const customizeScreen = 'Customize';
 
 const Tab = createBottomTabNavigator();
 
