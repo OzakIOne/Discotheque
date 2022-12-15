@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { View, ToastAndroid } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import DiscArray from '../../components/Data/Data';
+import Disc from '../../components/Disc/Disc';
 
 export default function CustomizeScreen() {
   const [imageUrl, setImageUrl] = useState('');
@@ -8,7 +10,7 @@ export default function CustomizeScreen() {
   const [artist, setArtist] = useState('');
   const [genre, setGenre] = useState('');
   const [tracks, setTracks] = useState([]);
-  const [year, setYear] = useState('');
+  const [year, setYear] = useState(0);
 
   return (
     <View>
@@ -45,6 +47,9 @@ export default function CustomizeScreen() {
       <Button
         mode="contained"
         onPress={() => {
+          DiscArray.push(
+            new Disc(imageUrl, title, artist, genre, tracks, year),
+          );
           ToastAndroid.show('Button Save pressed', ToastAndroid.SHORT);
         }}
       >
