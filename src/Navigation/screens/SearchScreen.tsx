@@ -22,14 +22,26 @@ const myfetch = (search: string) =>
 
 const Item = ({ title, image }: { title: string; image: string }) => (
   <View style={styles.item}>
-    <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />
+    <Image
+      source={{
+        uri: image || 'https://pngimg.com/uploads/shrek/shrek_PNG3.png',
+      }}
+      style={{ width: 50, height: 50 }}
+    />
     <Text>{title}</Text>
     <Button
       icon="plus"
       onPress={() => {
-        ToastAndroid.show('Button plus pressed', ToastAndroid.SHORT);
+        ToastAndroid.show('Album added', ToastAndroid.SHORT);
         DiscArray.push(
-          new Disc(image, title, 'Artist', 'Custom', ['Oui'], 1900),
+          new Disc(
+            image || 'https://pngimg.com/uploads/shrek/shrek_PNG3.png',
+            title,
+            'Artist',
+            'Custom',
+            ['Oui'],
+            1900,
+          ),
         );
       }}
       children="Add"
@@ -37,11 +49,16 @@ const Item = ({ title, image }: { title: string; image: string }) => (
   </View>
 );
 
+type Item = {
+  name: string;
+  image: Array<{ '#text': string }> | undefined;
+};
+
 export default function SearchScreen() {
   const [fmData, setFmData] = useState({});
 
-  const renderItem = ({ item }: { item: any }) => (
-    <Item title={item.name} image={item.image[1]['#text']} />
+  const renderItem = ({ item }: { item: Item }) => (
+    <Item title={item.name} image={item?.image[1]?.['#text']} />
   );
 
   return (
@@ -52,7 +69,7 @@ export default function SearchScreen() {
       <FlatList
         data={fmData?.topalbums?.album}
         renderItem={renderItem}
-        keyExtractor={(item) => item.image[0]['#text']}
+        keyExtractor={(item) => item?.image[0]?.['#text'] + item.name}
       />
     </View>
   );

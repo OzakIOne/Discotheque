@@ -4,10 +4,26 @@ import { useState } from 'react';
 import DiscArray from '../../components/Data/Data';
 import sortDiscs from '../../components/Data/Utils';
 
-const Item = ({ element }: any) => (
+type Disc = {
+  image: string;
+  title: string;
+  artist: string;
+  genre: string;
+  tracks: Array<string> | undefined;
+  year: number;
+};
+
+type DiscElement = {
+  type: string;
+  value: Array<Disc>;
+};
+
+type SortType = 'year' | 'genre' | 'artist' | string;
+
+const Item = ({ element }: { element: DiscElement }) => (
   <View style={styles.container}>
     <Text style={styles.subcategory}>{element.type}</Text>
-    {element.value.map((item: any, index: number) => (
+    {element.value.map((item: Disc, index: number) => (
       <View key={index} style={styles.item}>
         <Image source={{ uri: item.image }} style={{ width: 50, height: 50 }} />
         <View>
@@ -23,7 +39,9 @@ export default function AlbumScreen() {
   const [discs, setDiscs] = useState(sortDiscs(DiscArray, 'year'));
   const [sorttype, setSorttype] = useState('year');
 
-  const renderItem = ({ item }: any) => <Item element={item} />;
+  const renderItem = ({ item }: { item: DiscElement }) => (
+    <Item element={item} />
+  );
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -33,7 +51,7 @@ export default function AlbumScreen() {
         keyExtractor={(item) => item.type}
       />
       <RadioButton.Group
-        onValueChange={(sortValue) => {
+        onValueChange={(sortValue: SortType) => {
           setSorttype(sortValue);
           setDiscs(sortDiscs(DiscArray, sortValue));
         }}

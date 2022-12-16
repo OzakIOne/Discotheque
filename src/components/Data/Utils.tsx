@@ -1,5 +1,20 @@
-function sortDiscs(discs: any, groupBy: string) {
-  const groups = {};
+type Disc = {
+  image: string;
+  title: string;
+  artist: string;
+  genre: string;
+  tracks: Array<string> | undefined;
+  year: number;
+};
+
+type SortType = 'year' | 'genre' | 'artist';
+
+type Groups = {
+  [key: string]: Disc[];
+};
+
+function sortDiscs(discs: Disc[], groupBy: SortType) {
+  const groups: Groups = {};
   for (const disc of discs) {
     const groupKey = disc[groupBy];
     if (!groups[groupKey]) {
